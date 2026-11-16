@@ -8,8 +8,18 @@ on:
     paths:
       - 'fastlane/**'
 jobs:
-  build:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+      - run: mkdir -p /tmp/fastlane-metadata
+      - uses: dorny/paths-filter@v4
+        id: filter
+        with:
+          list-files: shell
+          filters: |
+            changed:
+              - '**'
+        if: steps.filter.outputs.changed == 'true'
+        run: cp ${{ steps.filter.outputs.changed_files }} /tmp/fastlane-metadata/
       - uses: ashutoshgngwr/validate-fastlane-supply-metadata@v2
