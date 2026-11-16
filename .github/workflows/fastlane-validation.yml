@@ -20,6 +20,7 @@ jobs:
           filters: |
             changed:
               - '**'
+      - name: create tree of changed files
         if: steps.filter.outputs.changed == 'true'
         run: cp ${{ steps.filter.outputs.changed_files }} /tmp/fastlane-metadata/
       - uses: ashutoshgngwr/validate-fastlane-supply-metadata@v2
