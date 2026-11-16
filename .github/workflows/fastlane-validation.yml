@@ -24,7 +24,7 @@ jobs:
               - '**'
       - name: create tree of changed files
         if: steps.filter.outputs.changed == 'true'
-        run: cp ${{ steps.filter.outputs.changed_files }} FASTLANE_CHANGED_FILES
+        run: cp --parents ${{ steps.filter.outputs.changed_files }} FASTLANE_CHANGED_FILES
       - name: check new directory  
         run: ls -R FASTLANE_CHANGED_FILES
       - uses: ashutoshgngwr/validate-fastlane-supply-metadata@v2
